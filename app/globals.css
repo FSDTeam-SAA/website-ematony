@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffcf6;
+  --foreground: #063627;
+  --cream: #fffcf6;
+  --cream-strong: #f9f1df;
+  --mint: #e8f5ec;
+  --mint-strong: #d8efe5;
+  --green: #146456;
+  --green-dark: #063627;
+  --green-deep: #04261d;
+  --gold: #e88c24;
+  --gold-soft: #fff3e0;
+  --muted: #6b7280;
+  --border: #e4e7ec;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-mint: var(--mint);
+  --color-green: var(--green);
+  --color-green-dark: var(--green-dark);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-outfit);
+  --font-heading: var(--font-outfit-heading);
+  --animate-rise-in: rise-in 700ms ease-out both;
+  --animate-float-in: float-in 800ms ease-out both;
+  --animate-modal-pop: modal-pop 260ms ease-out both;
+  --animate-fade-in: fade-in 180ms ease-out both;
+  --animate-soft-pulse: soft-pulse 4.8s ease-in-out infinite;
+  --animate-answer-open: answer-open 220ms ease-out both;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-outfit-heading), var(--font-outfit), sans-serif;
+  letter-spacing: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+::selection {
+  background: rgba(232, 140, 36, 0.28);
+  color: var(--green-dark);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes answer-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
