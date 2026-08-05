@@ -13,6 +13,7 @@ export async function getPublicFaqs(): Promise<PublicFaq[]> {
   try {
     const response = await fetch(`${baseUrl}/faqs`, {
       next: { revalidate: 300 },
+      signal: AbortSignal.timeout(5_000),
     });
 
     if (!response.ok) return [];

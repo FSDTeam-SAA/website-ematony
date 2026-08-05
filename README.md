@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ajo Family by Ematony website
 
-## Getting Started
+The public marketing site for Ajo Family, built with Next.js App Router, TypeScript, Tailwind CSS, Motion, Bricolage Grotesque, and Outfit.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Public configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All variables are optional. Store-search destinations are used when exact listing URLs are not configured.
 
-## Learn More
+```dotenv
+NEXT_PUBLIC_SITE_URL=https://www.example.com
+NEXT_PUBLIC_BASE_URL=https://api.example.com/api/v1
+NEXT_PUBLIC_APP_STORE_URL=https://apps.apple.com/app/your-listing
+NEXT_PUBLIC_PLAY_STORE_URL=https://play.google.com/store/apps/details?id=your.app
+```
 
-To learn more about Next.js, take a look at the following resources:
+- `NEXT_PUBLIC_SITE_URL` supplies the canonical origin for absolute metadata.
+- `NEXT_PUBLIC_BASE_URL` supplies the public API origin used by the server-rendered FAQ request.
+- `NEXT_PUBLIC_APP_STORE_URL` and `NEXT_PUBLIC_PLAY_STORE_URL` replace the safe Ematony store-search fallbacks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+FAQ data is cached and revalidated every five minutes. If the API is unavailable or returns no entries, the homepage shows a customer-facing in-app support message.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Validation
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
