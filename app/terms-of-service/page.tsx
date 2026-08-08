@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer, Header, LegalPage } from "@/app/components/site-shell";
+import { getPublicPage } from "@/app/lib/content";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -65,15 +66,24 @@ const sections = [
   },
 ];
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage() {
+  const page = await getPublicPage("terms-of-service", {
+    slug: "terms-of-service",
+    title: "Terms of Service",
+    updatedLabel: "August 3, 2026",
+    intro: "These Terms of Service describe the rules for using Ematony Ajo Family tools for group savings, rotating contributions, wallet activity, verification, notifications, and support.",
+    sections,
+  });
+
   return (
     <div className="min-h-screen bg-[#fffcf6]">
       <Header />
       <LegalPage
-        title="Terms of Service"
-        updated="August 3, 2026"
-        intro="These Terms of Service describe the rules for using Ematony Ajo Family tools for group savings, rotating contributions, wallet activity, verification, notifications, and support."
-        sections={sections}
+        title={page.title}
+        content={page.content}
+        updated={page.updatedLabel || "August 3, 2026"}
+        intro={page.intro}
+        sections={page.sections}
       />
       <Footer />
     </div>

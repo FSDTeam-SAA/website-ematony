@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer, Header, LegalPage } from "@/app/components/site-shell";
+import { getPublicPage } from "@/app/lib/content";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -58,15 +59,24 @@ const sections = [
   },
 ];
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const page = await getPublicPage("privacy-policy", {
+    slug: "privacy-policy",
+    title: "Privacy Policy",
+    updatedLabel: "August 3, 2026",
+    intro: "This Privacy Policy explains how Ematony collects, uses, protects, and shares information when people use Ajo Family group savings, wallet, verification, notification, and support services.",
+    sections,
+  });
+
   return (
     <div className="min-h-screen bg-[#fffcf6]">
       <Header />
       <LegalPage
-        title="Privacy Policy"
-        updated="August 3, 2026"
-        intro="This Privacy Policy explains how Ematony collects, uses, protects, and shares information when people use Ajo Family group savings, wallet, verification, notification, and support services."
-        sections={sections}
+        title={page.title}
+        content={page.content}
+        updated={page.updatedLabel || "August 3, 2026"}
+        intro={page.intro}
+        sections={page.sections}
       />
       <Footer />
     </div>

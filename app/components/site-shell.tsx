@@ -2,12 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { DownloadAppButton } from "@/app/components/download-modal";
 import { SiteHeader } from "@/app/components/site-header";
+import { RichText } from "@/app/components/rich-text";
 
 const footerNavigation = [
+  { href: "/#about", label: "About Ajo Family" },
   { href: "/#how-it-works", label: "How it works" },
   { href: "/#pathways", label: "Pathways" },
   { href: "/#features", label: "Features" },
   { href: "/#security", label: "Trust" },
+  { href: "/#team", label: "Our Team" },
+  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#contact", label: "Contact Us" },
   { href: "/#faqs", label: "FAQ" },
 ];
 
@@ -117,7 +122,7 @@ export function Footer() {
               </ul>
             </nav>
             <p className="mt-6 max-w-xs text-[13px] leading-6 text-white/50">
-              Need help? Support is available from inside the Ajo Family app.
+              Need help? Use the Contact Us form or support inside the Ajo Family app.
             </p>
           </div>
         </div>
@@ -134,11 +139,13 @@ export function Footer() {
 export function LegalPage({
   title,
   intro,
+  content,
   updated,
   sections,
 }: {
   title: string;
   intro: string;
+  content?: string;
   updated: string;
   sections: Array<{ title: string; body: string[] }>;
 }) {
@@ -156,15 +163,17 @@ export function LegalPage({
           <h1 className="mt-4 max-w-[14ch] text-[42px] font-extrabold leading-[1.02] tracking-[-0.04em] text-[#063627] sm:text-[62px]">
             {title}
           </h1>
-          <p className="mt-5 max-w-3xl text-[17px] leading-8 text-[#50675e] sm:text-[18px]">
-            {intro}
-          </p>
+          <RichText content={intro} className="mt-5 max-w-3xl text-[17px] leading-8 text-[#50675e] sm:text-[18px]" />
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-4xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
         <div className="grid gap-5">
-          {sections.map((section) => (
+          {content ? (
+            <article className="rounded-[22px] border border-[#0c3d2f]/10 bg-white p-6 shadow-[0_14px_40px_rgba(6,54,39,0.055)] sm:p-8">
+              <RichText content={content} className="text-[15px] leading-7 text-[#536960] sm:text-[16px]" />
+            </article>
+          ) : sections.map((section) => (
             <article
               key={section.title}
               className="rounded-[22px] border border-[#0c3d2f]/10 bg-white p-6 shadow-[0_14px_40px_rgba(6,54,39,0.055)] sm:p-8"
@@ -172,11 +181,7 @@ export function LegalPage({
               <h2 className="text-[24px] font-bold tracking-[-0.02em] text-[#063627] sm:text-[27px]">
                 {section.title}
               </h2>
-              <div className="mt-4 grid gap-4 text-[15px] leading-7 text-[#536960] sm:text-[16px]">
-                {section.body.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
+              <RichText content={section.body} className="mt-4 text-[15px] leading-7 text-[#536960] sm:text-[16px]" />
             </article>
           ))}
         </div>

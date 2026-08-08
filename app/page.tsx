@@ -10,9 +10,14 @@ import {
   Headphones,
   Layers3,
   LockKeyhole,
+  Mail,
+  MapPin,
+  MessageSquareQuote,
+  Phone,
   RotateCw,
   Sparkles,
   UserCheck,
+  Users,
   WalletCards,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -21,6 +26,10 @@ import {
   StoreButtons,
 } from "@/app/components/download-modal";
 import { FaqAccordion } from "@/app/components/faq-accordion";
+import { ContactForm } from "@/app/components/contact-form";
+import { RichText } from "@/app/components/rich-text";
+import { TestimonialCarousel } from "@/app/components/testimonial-carousel";
+import { TeamCarousel } from "@/app/components/team-carousel";
 import {
   MotionPage,
   Reveal,
@@ -29,6 +38,13 @@ import {
 } from "@/app/components/landing-interactions";
 import { Footer, Header } from "@/app/components/site-shell";
 import { getPublicFaqs } from "@/app/lib/faqs";
+import {
+  defaultAboutPage,
+  defaultContactPage,
+  getPublicPage,
+  getPublicTeam,
+  getPublicTestimonials,
+} from "@/app/lib/content";
 
 export const revalidate = 300;
 
@@ -370,7 +386,13 @@ function FeatureProof({ kind }: { kind: (typeof productFeatures)[number]["kind"]
 }
 
 export default async function Home() {
-  const faqs = await getPublicFaqs();
+  const [faqs, about, team, testimonials, contact] = await Promise.all([
+    getPublicFaqs(),
+    getPublicPage("about-ajo-family", defaultAboutPage),
+    getPublicTeam(),
+    getPublicTestimonials(),
+    getPublicPage("contact", defaultContactPage),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#fffaf0]">
@@ -449,6 +471,39 @@ export default async function Home() {
             </div>
           </section>
 
+          <section id="about" className="bg-[#fffaf0] py-24 sm:py-28">
+            <div className="section-shell">
+              <Reveal className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div>
+                  <p className="section-kicker text-[#146456]">About Ajo Family</p>
+                  <h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] text-[#063627] sm:text-[58px] lg:text-[66px]">
+                    {about.title}
+                  </h2>
+                </div>
+                <RichText content={about.intro} className="text-pretty max-w-[660px] text-[18px] leading-8 text-[#587066] lg:justify-self-end" />
+              </Reveal>
+              {about.content ? (
+                <Reveal className="mt-12">
+                  <article className="rounded-[28px] border border-[#d6e4dc] bg-white p-6 shadow-[0_18px_50px_rgba(3,54,39,0.07)] sm:p-9">
+                    <RichText content={about.content} className="text-[16px] leading-8 text-[#587066] sm:text-[17px]" />
+                  </article>
+                </Reveal>
+              ) : (
+                <div className="mt-12 grid gap-5 lg:grid-cols-3">
+                  {about.sections.map((section, index) => (
+                  <Reveal key={`${section.title}-${index}`} delay={index * 0.07}>
+                    <article className={`h-full rounded-[26px] border p-6 sm:p-7 ${index === 1 ? "border-[#efd4aa] bg-[#fff1d7]" : index === 2 ? "border-[#bcd8c8] bg-[#e7f4eb]" : "border-[#dce6df] bg-white"}`}>
+                      <span className="text-[12px] font-extrabold uppercase tracking-[0.14em] text-[#146456]">0{index + 1}</span>
+                      <h3 className="mt-4 text-[25px] font-bold text-[#063627]">{section.title}</h3>
+                      <RichText content={section.body} className="mt-4 text-[16px] leading-7 text-[#587066]" />
+                    </article>
+                  </Reveal>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+
           <section id="how-it-works" className="bg-[#fffaf0] pb-24 pt-14 sm:pb-28">
             <div className="section-shell">
               <Reveal className="grid items-end gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -468,6 +523,34 @@ export default async function Home() {
               <div className="mt-14">
                 <SavingsCycle />
               </div>
+            </div>
+          </section>
+
+          <section id="team" className="bg-[#f4ecde] py-24 sm:py-28">
+            <div className="section-shell">
+              <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div><p className="section-kicker text-[#146456]">Our Team</p><h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] text-[#063627] sm:text-[58px]">People behind the circle.</h2></div>
+                <p className="max-w-[520px] text-[17px] leading-8 text-[#587066]">Meet the people building a clearer and more dependable way to save together.</p>
+              </Reveal>
+              {team.length ? (
+                <TeamCarousel members={team} />
+              ) : (
+                <div className="mt-12 flex min-h-[220px] flex-col items-center justify-center rounded-[28px] border border-dashed border-[#b9ccc1] bg-white/60 p-8 text-center"><Users className="h-8 w-8 text-[#146456]" /><p className="mt-4 max-w-md text-[16px] leading-7 text-[#587066]">Team profiles are being prepared and will appear here soon.</p></div>
+              )}
+            </div>
+          </section>
+
+          <section id="testimonials" className="brand-grid bg-[#063627] py-24 text-white sm:py-28">
+            <div className="section-shell">
+              <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div><p className="section-kicker text-[#f6cb78]">Testimonials</p><h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] sm:text-[58px]">What our community says.</h2></div>
+                <MessageSquareQuote className="hidden h-14 w-14 text-[#f5b94b] lg:block" />
+              </Reveal>
+              {testimonials.length ? (
+                <TestimonialCarousel testimonials={testimonials} />
+              ) : (
+                <div className="mt-12 rounded-[26px] border border-white/12 bg-white/[0.07] p-8 text-center text-[#c9ddd2]">Community reviews will appear here as they are published.</div>
+              )}
             </div>
           </section>
 
@@ -616,6 +699,23 @@ export default async function Home() {
               <Reveal delay={0.08}>
                 <FaqAccordion faqs={faqs} />
               </Reveal>
+            </div>
+          </section>
+
+          <section id="contact" className="bg-[#e7f4eb] py-24 sm:py-28">
+            <div className="section-shell grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+              <Reveal>
+                <p className="section-kicker text-[#146456]">Contact Us</p>
+                <h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] text-[#063627] sm:text-[58px]">{contact.title}</h2>
+                <p className="mt-6 text-[17px] leading-8 text-[#587066]">{contact.intro}</p>
+                <div className="mt-8 grid gap-4">
+                  {contact.email ? <a href={`mailto:${contact.email}`} className="flex items-start gap-4 rounded-[18px] bg-white p-5 transition hover:-translate-y-0.5"><Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span><span className="block text-[12px] font-bold uppercase tracking-[0.12em] text-[#6c827a]">Official email</span><span className="mt-1 block font-bold text-[#063627]">{contact.email}</span></span></a> : null}
+                  {contact.phone ? <a href={`tel:${contact.phone}`} className="flex items-start gap-4 rounded-[18px] bg-white p-5 transition hover:-translate-y-0.5"><Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span><span className="block text-[12px] font-bold uppercase tracking-[0.12em] text-[#6c827a]">Official phone</span><span className="mt-1 block font-bold text-[#063627]">{contact.phone}</span></span></a> : null}
+                  {contact.address ? <div className="flex items-start gap-4 rounded-[18px] bg-white p-5"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span className="leading-6 text-[#587066]">{contact.address}</span></div> : null}
+                  {contact.supportHours ? <div className="flex items-start gap-4 rounded-[18px] bg-white p-5"><Headphones className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span className="leading-6 text-[#587066]">{contact.supportHours}</span></div> : null}
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}><ContactForm /></Reveal>
             </div>
           </section>
 

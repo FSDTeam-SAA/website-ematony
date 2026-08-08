@@ -3,7 +3,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Download, Menu, X } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpenText,
+  CircleHelp,
+  Compass,
+  Download,
+  LayoutGrid,
+  ListChecks,
+  Mail,
+  Menu,
+  MessageSquareQuote,
+  ShieldCheck,
+  Users,
+  X,
+} from "lucide-react";
 import {
   type KeyboardEvent,
   useCallback,
@@ -19,11 +33,15 @@ import {
 } from "@/app/components/download-modal";
 
 const navigation = [
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#pathways", label: "Pathways" },
-  { href: "/#features", label: "Features" },
-  { href: "/#security", label: "Trust" },
-  { href: "/#faqs", label: "FAQ" },
+  { href: "/#about", label: "About"},
+  { href: "/#how-it-works", label: "How it works"},
+  { href: "/#pathways", label: "Pathways"},
+  { href: "/#features", label: "Features"},
+  { href: "/#security", label: "Trust"},
+  { href: "/#team", label: "Team"},
+  { href: "/#testimonials", label: "Reviews"},
+  { href: "/#faqs", label: "FAQ"},
+  { href: "/#contact", label: "Contact"},
 ];
 
 function getFocusableElements(container: HTMLElement) {
@@ -53,7 +71,7 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
+    const desktop = window.matchMedia("(min-width: 1280px)");
     const closeAtDesktop = () => {
       if (desktop.matches) closeMenu(false);
     };
@@ -126,7 +144,7 @@ export function SiteHeader() {
             }}
           >
             {menuOpen ? (
-              <div className="fixed inset-0 z-[100] lg:hidden">
+              <div className="fixed inset-0 z-[100] xl:hidden">
                 <motion.div
                   aria-hidden="true"
                   className="absolute inset-0 bg-[#031d16]/70 backdrop-blur-sm"
@@ -168,14 +186,6 @@ export function SiteHeader() {
                         height={132}
                         className="h-11 w-auto shrink-0 object-contain"
                       />
-                      <span className="min-w-0 leading-tight">
-                        <span className="block truncate text-[15px] font-extrabold text-[#07372a]">
-                          Ajo Family
-                        </span>
-                        <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#547168]">
-                          by Ematony
-                        </span>
-                      </span>
                     </Link>
                     <button
                       type="button"
@@ -190,7 +200,8 @@ export function SiteHeader() {
 
                   <nav aria-label="Mobile navigation" className="py-5">
                     <ul className="grid gap-1">
-                      {navigation.map((item, index) => (
+                      {navigation.map((item) => {
+                        return (
                         <li key={item.href}>
                           <Link
                             href={item.href}
@@ -198,9 +209,6 @@ export function SiteHeader() {
                             className="group flex min-h-14 items-center justify-between rounded-2xl px-4 text-[19px] font-bold text-[#0a3b2d] transition hover:bg-[#e8f4ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32]"
                           >
                             <span className="flex items-center gap-4">
-                              <span className="text-[11px] font-extrabold tabular-nums text-[#8a4b08]">
-                                0{index + 1}
-                              </span>
                               {item.label}
                             </span>
                             <ArrowRight
@@ -209,7 +217,8 @@ export function SiteHeader() {
                             />
                           </Link>
                         </li>
-                      ))}
+                        );
+                      })}
                     </ul>
                   </nav>
 
@@ -259,33 +268,27 @@ export function SiteHeader() {
               priority
               className="h-12 w-auto shrink-0 object-contain sm:h-[54px]"
             />
-            <span className="hidden min-w-0 border-l border-[#0c3d2f]/12 pl-3 leading-tight sm:block">
-              <span className="block text-[15px] font-extrabold tracking-[-0.01em] text-[#07372a]">
-                Ajo Family
-              </span>
-              <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#49635a]">
-                by Ematony
-              </span>
-            </span>
           </Link>
 
           <nav
             aria-label="Primary navigation"
-            className="hidden items-center gap-1 lg:flex"
+            className="hidden items-center gap-0.5 xl:flex"
           >
-            {navigation.map((item) => (
+            {navigation.map((item) => {
+              return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-3.5 py-2.5 text-[14px] font-bold text-[#315b50] transition hover:bg-[#e8f4ea] hover:text-[#07372a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] xl:px-4"
+                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-2.5 text-[13px] font-bold text-[#315b50] transition hover:bg-[#e8f4ea] hover:text-[#07372a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] xl:px-3 xl:text-[14px]"
               >
                 {item.label}
               </Link>
-            ))}
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
-            <DownloadAppButton data-download-focus-fallback className="hidden h-12 items-center justify-center gap-2 rounded-full bg-[#07372a] px-6 text-[14px] font-extrabold text-white shadow-[0_14px_34px_rgba(6,54,39,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0f5b46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] focus-visible:ring-offset-2 lg:inline-flex">
+            <DownloadAppButton data-download-focus-fallback className="hidden h-12 items-center justify-center gap-2 rounded-full bg-[#07372a] px-6 text-[14px] font-extrabold text-white shadow-[0_14px_34px_rgba(6,54,39,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0f5b46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] focus-visible:ring-offset-2 xl:inline-flex">
               Download app
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </DownloadAppButton>
@@ -296,7 +299,7 @@ export function SiteHeader() {
               aria-controls="mobile-navigation"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#0c3d2f]/12 bg-white text-[#07372a] shadow-sm transition hover:bg-[#e8f4ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#0c3d2f]/12 bg-white text-[#07372a] shadow-sm transition hover:bg-[#e8f4ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] xl:hidden"
               aria-label="Open menu"
             >
               <Menu aria-hidden="true" className="h-5 w-5" />

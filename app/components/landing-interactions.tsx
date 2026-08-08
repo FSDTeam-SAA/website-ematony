@@ -178,7 +178,7 @@ export function SavingsCycle() {
 
         <div
           aria-hidden="true"
-          className="absolute bottom-9 left-6 top-9 z-20 w-[2px] bg-[var(--mint-strong)] md:hidden"
+          className="absolute bottom-9 left-6 top-9 w-[2px] bg-[var(--mint-strong)] md:hidden"
         >
           <motion.span
             className="absolute inset-x-0 top-0 h-full origin-top rounded-full bg-[var(--gold)]"
@@ -194,7 +194,7 @@ export function SavingsCycle() {
 
         <div
           aria-hidden="true"
-          className="absolute left-[12.5%] right-[12.5%] top-6 z-20 hidden h-[2px] bg-[var(--mint-strong)] md:block"
+          className="absolute left-[12.5%] right-[12.5%] top-6 hidden h-[2px] bg-[var(--mint-strong)] md:block"
         >
           <motion.span
             className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-[var(--gold)]"
