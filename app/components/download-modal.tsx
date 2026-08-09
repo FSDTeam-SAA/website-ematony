@@ -24,9 +24,9 @@ const BODY_LOCK_COUNT = "data-ajo-body-lock-count";
 const BODY_OVERFLOW = "data-ajo-body-overflow";
 const ROOT_OVERFLOW = "data-ajo-root-overflow";
 
-const APP_STORE_FALLBACK = "https://apps.apple.com/search?term=Ematony";
+const APP_STORE_FALLBACK = "https://apps.apple.com/search?term=Ajo%20Family";
 const PLAY_STORE_FALLBACK =
-  "https://play.google.com/store/search?q=Ematony&c=apps";
+  "https://play.google.com/store/search?q=Ajo%20Family&c=apps";
 
 export const storeLinks = [
   {
@@ -441,7 +441,7 @@ export function DownloadExperience() {
             <div className="pr-12">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#0f5b46]/12 bg-[#e7f3e9] px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-[#0b5a43]">
                 <Smartphone aria-hidden="true" className="h-3.5 w-3.5" />
-                Ajo Family by Ematony
+                Ajo Family
               </div>
               <h2
                 id={titleId}

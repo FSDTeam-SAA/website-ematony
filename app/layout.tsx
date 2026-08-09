@@ -16,7 +16,7 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 });
 
-const title = "Ajo Family by Ematony | Save Together, Clearly";
+const title = "Ajo Family | Save Together, Clearly";
 const description =
   "Plan contributions, follow each payment, and coordinate rotating payouts with family, friends, and trusted communities in one mobile app.";
 const siteUrl =
@@ -27,15 +27,14 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  applicationName: "Ajo Family by Ematony",
+  applicationName: "Ajo Family",
   title: {
     default: title,
-    template: "%s | Ajo Family by Ematony",
+    template: "%s | Ajo Family",
   },
   description,
   keywords: [
     "Ajo Family",
-    "Ematony",
     "ajo savings app",
     "group savings",
     "rotating savings",
@@ -43,13 +42,13 @@ export const metadata: Metadata = {
     "community contributions",
     "Nigeria savings app",
   ],
-  creator: "Ematony",
-  publisher: "Ematony",
+  creator: "Ajo Family",
+  publisher: "Ajo Family",
   category: "finance",
   openGraph: {
     type: "website",
     locale: "en_NG",
-    siteName: "Ajo Family by Ematony",
+    siteName: "Ajo Family",
     title,
     description,
   },

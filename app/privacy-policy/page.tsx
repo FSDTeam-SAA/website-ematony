@@ -5,14 +5,14 @@ import { getPublicPage } from "@/app/lib/content";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for Ematony Ajo Family savings and group contribution services.",
+    "Privacy Policy for Ajo Family savings and group contribution services.",
 };
 
 const sections = [
   {
     title: "Information we collect",
     body: [
-      "We may collect account details such as your name, email address, phone number, password, profile photo, and other information you provide when creating or updating an Ematony account.",
+      "We may collect account details such as your name, email address, phone number, password, profile photo, and other information you provide when creating or updating an Ajo Family account.",
       "When you use group savings, wallet, KYC, payment, notification, and support features, we may collect related transaction records, group membership details, verification status, device information, and support messages.",
     ],
   },
@@ -27,7 +27,7 @@ const sections = [
     title: "Payments and verification",
     body: [
       "Payment and identity verification services may be handled by trusted third-party providers. These providers process information needed to complete wallet funding, withdrawals, identity checks, fraud prevention, and payment reconciliation.",
-      "Ematony does not ask you to share sensitive payment credentials outside approved payment or verification flows.",
+      "Ajo Family does not ask you to share sensitive payment credentials outside approved payment or verification flows.",
     ],
   },
   {
@@ -54,7 +54,7 @@ const sections = [
   {
     title: "Contact",
     body: [
-      "For privacy questions or requests, contact the Ematony support team through the app or the official support channel provided by Ematony.",
+      "For privacy questions or requests, contact the Ajo Family support team through the app or the official support channel.",
     ],
   },
 ];
@@ -64,7 +64,7 @@ export default async function PrivacyPolicyPage() {
     slug: "privacy-policy",
     title: "Privacy Policy",
     updatedLabel: "August 3, 2026",
-    intro: "This Privacy Policy explains how Ematony collects, uses, protects, and shares information when people use Ajo Family group savings, wallet, verification, notification, and support services.",
+    intro: "This Privacy Policy explains how Ajo Family collects, uses, protects, and shares information when people use its group savings, wallet, verification, notification, and support services.",
     sections,
   });
 

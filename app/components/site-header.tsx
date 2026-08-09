@@ -176,7 +176,7 @@ export function SiteHeader() {
                     <Link
                       href="/"
                       className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32]"
-                      aria-label="Ajo Family by Ematony home"
+                      aria-label="Ajo Family home"
                       onClick={() => closeMenu(false)}
                     >
                       <Image
@@ -258,7 +258,7 @@ export function SiteHeader() {
           <Link
             href="/"
             className="flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e99a32] focus-visible:ring-offset-4"
-            aria-label="Ajo Family by Ematony home"
+            aria-label="Ajo Family home"
           >
             <Image
               src="/brand/ajo-family-logo.png"

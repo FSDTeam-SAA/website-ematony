@@ -417,7 +417,7 @@ export default async function Home() {
               <Reveal className="relative z-10 max-w-[650px]" delay={0.05} eager>
                 <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.08] px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#f6cb78] backdrop-blur">
                   <Sparkles aria-hidden="true" size={16} />
-                  Ajo Family by Ematony
+                  Ajo Family
                 </div>
 
                 <h1 className="text-balance mt-7 text-[48px] font-bold leading-[0.95] sm:text-[68px] lg:text-[78px] xl:text-[88px]">
@@ -729,7 +729,7 @@ export default async function Home() {
                     Your next shared goal starts together.
                   </h2>
                   <p className="text-pretty mt-6 max-w-[660px] text-[18px] leading-8 text-[#d6e7dd]">
-                    Download Ajo Family by Ematony and bring contributions, payout
+                    Download Ajo Family and bring contributions, payout
                     order, wallet activity, and group progress into one place.
                   </p>
                   <div className="mt-8 max-w-[520px]">

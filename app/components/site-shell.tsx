@@ -62,14 +62,6 @@ export function Footer() {
                   className="h-full w-full object-contain"
                 />
               </span>
-              <span className="leading-tight">
-                <span className="block text-[19px] font-extrabold text-white">
-                  Ajo Family
-                </span>
-                <span className="block text-[11px] font-bold uppercase tracking-[0.15em] text-white/55">
-                  by Ematony
-                </span>
-              </span>
             </Link>
             <p className="mt-5 max-w-md text-[15px] leading-7 text-[#bcd0c8]">
               A clearer way for families, friends, and communities to organize
@@ -128,7 +120,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/10 pt-6 text-[13px] text-white/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} Ematony. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Ajo Family. All rights reserved.</p>
           <p>Built around the people you already trust.</p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Ajo Family by Ematony - Your people. Your savings. One clear circle.";
+  "Ajo Family - Your people. Your savings. One clear circle.";
 
 export const size = {
   width: 1200,
@@ -113,9 +113,6 @@ export default function OpenGraphImage() {
             }}
           >
             <span style={{ color: "#f2aa4c" }}>Ajo Family</span>
-            <span style={{ marginLeft: 10, color: "#d8efe5" }}>
-              by Ematony
-            </span>
           </div>
 
           <div
