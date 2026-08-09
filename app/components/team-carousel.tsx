@@ -1,14 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, X } from "lucide-react";
 import type { PublicTeamMember } from "@/app/lib/content";
 
 export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const visionDialogRef = useRef<HTMLDialogElement>(null);
   const [itemsPerView, setItemsPerView] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
+  const [selectedMember, setSelectedMember] = useState<PublicTeamMember | null>(null);
   const pageCount = Math.max(1, Math.ceil(members.length / itemsPerView));
+
+  useEffect(() => {
+    const dialog = visionDialogRef.current;
+    if (selectedMember && dialog && !dialog.open) dialog.showModal();
+  }, [selectedMember]);
+
+  const closeVision = () => visionDialogRef.current?.close();
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1024px)");
@@ -90,7 +99,16 @@ export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
             </div>
             <h3 className="mt-6 text-[25px] font-bold text-[#063627]">{member.name}</h3>
             <p className="mt-1 text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#146456]">{member.role}</p>
-            <p className="mt-4 text-[15px] leading-7 text-[#587066]">{member.bio}</p>
+            <p className="mt-4 line-clamp-5 whitespace-pre-line text-[15px] leading-7 text-[#587066]">{member.bio}</p>
+            {member.bio.length > 280 ? (
+              <button
+                type="button"
+                onClick={() => setSelectedMember(member)}
+                className="mt-auto self-start pt-5 text-[14px] font-extrabold text-[#146456] underline decoration-[#9eb8aa] underline-offset-4 transition hover:text-[#063627] hover:decoration-[#146456]"
+              >
+                Read full vision
+              </button>
+            ) : null}
           </article>
         ))}
       </div>
@@ -115,6 +133,45 @@ export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
           </div>
         </div>
       ) : null}
+
+      <dialog
+        ref={visionDialogRef}
+        aria-labelledby="team-vision-title"
+        onClose={() => setSelectedMember(null)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeVision();
+        }}
+        className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-[760px] overflow-y-auto rounded-[30px] border border-[#d6e4dc] bg-[#fffaf0] p-0 text-left text-[#063627] shadow-[0_30px_100px_rgba(3,54,39,0.28)] backdrop:bg-[#032f25]/70 backdrop:backdrop-blur-sm"
+      >
+        {selectedMember ? (
+          <div className="relative p-6 sm:p-9">
+            <button
+              type="button"
+              onClick={closeVision}
+              aria-label="Close full vision"
+              className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d6e4dc] bg-white text-[#063627] transition hover:border-[#146456] hover:bg-[#e7f4eb]"
+            >
+              <X aria-hidden="true" className="h-5 w-5" />
+            </button>
+
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e7f4eb] text-[#146456]">
+              <Quote aria-hidden="true" className="h-6 w-6" />
+            </div>
+            <p className="mt-6 text-[12px] font-extrabold uppercase tracking-[0.14em] text-[#146456]">
+              Founder&apos;s vision
+            </p>
+            <h3 id="team-vision-title" className="mt-3 pr-12 text-[32px] font-bold leading-tight sm:text-[40px]">
+              {selectedMember.name}
+            </h3>
+            <p className="mt-1 text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#146456]">
+              {selectedMember.role}
+            </p>
+            <p className="mt-7 whitespace-pre-line text-[16px] leading-8 text-[#587066] sm:text-[17px]">
+              {selectedMember.bio}
+            </p>
+          </div>
+        ) : null}
+      </dialog>
     </div>
   );
 }
