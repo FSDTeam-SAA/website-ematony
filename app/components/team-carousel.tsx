@@ -42,16 +42,28 @@ export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
     [itemsPerView, pageCount],
   );
 
+  const getPageScrollLeft = useCallback(
+    (track: HTMLDivElement, page: number) => {
+      const firstItem = track.children[0] as HTMLElement | undefined;
+      const targetItem = track.children[pageStartIndexes[page]] as HTMLElement | undefined;
+      if (!firstItem || !targetItem) return 0;
+
+      const itemOffset = targetItem.offsetLeft - firstItem.offsetLeft;
+      const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+      return Math.min(Math.max(0, itemOffset), maxScrollLeft);
+    },
+    [pageStartIndexes],
+  );
+
   const scrollToPage = useCallback(
     (page: number) => {
       const track = trackRef.current;
       if (!track) return;
       const normalizedPage = (page + pageCount) % pageCount;
-      const target = track.children[pageStartIndexes[normalizedPage]] as HTMLElement | undefined;
-      track.scrollTo({ left: target?.offsetLeft ?? 0, behavior: "smooth" });
+      track.scrollTo({ left: getPageScrollLeft(track, normalizedPage), behavior: "smooth" });
       setCurrentPage(normalizedPage);
     },
-    [pageCount, pageStartIndexes],
+    [getPageScrollLeft, pageCount],
   );
 
   useEffect(() => {
@@ -62,11 +74,9 @@ export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
     const updateCurrentPage = () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        const children = Array.from(track.children) as HTMLElement[];
-        const closestPage = pageStartIndexes.reduce((bestPage, itemIndex, page) => {
-          const bestIndex = pageStartIndexes[bestPage];
-          const bestDistance = Math.abs((children[bestIndex]?.offsetLeft ?? 0) - track.scrollLeft);
-          const distance = Math.abs((children[itemIndex]?.offsetLeft ?? 0) - track.scrollLeft);
+        const closestPage = pageStartIndexes.reduce((bestPage, _, page) => {
+          const bestDistance = Math.abs(getPageScrollLeft(track, bestPage) - track.scrollLeft);
+          const distance = Math.abs(getPageScrollLeft(track, page) - track.scrollLeft);
           return distance < bestDistance ? page : bestPage;
         }, 0);
         setCurrentPage(closestPage);
@@ -78,7 +88,7 @@ export function TeamCarousel({ members }: { members: PublicTeamMember[] }) {
       window.cancelAnimationFrame(frame);
       track.removeEventListener("scroll", updateCurrentPage);
     };
-  }, [pageStartIndexes]);
+  }, [getPageScrollLeft, pageStartIndexes]);
 
   return (
     <div className="mt-12" role="region" aria-roledescription="carousel" aria-label="Ajo Family team">
