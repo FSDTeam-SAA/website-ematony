@@ -103,8 +103,8 @@ export const defaultContactPage: PublicSitePage = {
   title: "Contact Us",
   intro: "Questions about Ajo Family? Send our team a message or use the official contact details below.",
   email: "info@ajofamily.tech",
-  phone: "",
-  address: "",
+  phone: "+234 707 769 6521",
+  address: "Nigeria",
   supportHours: "Monday to Friday, 9:00 AM–5:00 PM",
   sections: [],
 };

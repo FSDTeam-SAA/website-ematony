@@ -12,6 +12,7 @@ import {
   LockKeyhole,
   Mail,
   MapPin,
+  MessageCircle,
   MessageSquareQuote,
   Phone,
   RotateCw,
@@ -386,13 +387,18 @@ function FeatureProof({ kind }: { kind: (typeof productFeatures)[number]["kind"]
 }
 
 export default async function Home() {
-  const [faqs, about, team, testimonials, contact] = await Promise.all([
+  const [faqs, about, team, testimonials, contactPage] = await Promise.all([
     getPublicFaqs(),
     getPublicPage("about-ajo-family", defaultAboutPage),
     getPublicTeam(),
     getPublicTestimonials(),
     getPublicPage("contact", defaultContactPage),
   ]);
+  const contact = {
+    ...contactPage,
+    phone: "+234 707 769 6521",
+    address: "Nigeria",
+  };
 
   return (
     <div className="min-h-screen bg-[#fffaf0]">
@@ -702,17 +708,40 @@ export default async function Home() {
             </div>
           </section>
 
-          <section id="contact" className="bg-[#e7f4eb] py-24 sm:py-28">
-            <div className="section-shell grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-              <Reveal>
+          <section id="contact" className="relative overflow-hidden bg-[#e7f4eb] py-24 sm:py-28">
+            <div aria-hidden="true" className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-[#bfe3cf]/45 blur-3xl" />
+            <div aria-hidden="true" className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-[#f6cb78]/15 blur-3xl" />
+            <div className="section-shell relative grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 xl:gap-16">
+              <Reveal className="lg:pt-3">
                 <p className="section-kicker text-[#146456]">Contact Us</p>
                 <h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] text-[#063627] sm:text-[58px]">{contact.title}</h2>
-                <p className="mt-6 text-[17px] leading-8 text-[#587066]">{contact.intro}</p>
-                <div className="mt-8 grid gap-4">
-                  {contact.email ? <a href={`mailto:${contact.email}`} className="flex items-start gap-4 rounded-[18px] bg-white p-5 transition hover:-translate-y-0.5"><Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span><span className="block text-[12px] font-bold uppercase tracking-[0.12em] text-[#6c827a]">Official email</span><span className="mt-1 block font-bold text-[#063627]">{contact.email}</span></span></a> : null}
-                  {contact.phone ? <a href={`tel:${contact.phone}`} className="flex items-start gap-4 rounded-[18px] bg-white p-5 transition hover:-translate-y-0.5"><Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span><span className="block text-[12px] font-bold uppercase tracking-[0.12em] text-[#6c827a]">Official phone</span><span className="mt-1 block font-bold text-[#063627]">{contact.phone}</span></span></a> : null}
-                  {contact.address ? <div className="flex items-start gap-4 rounded-[18px] bg-white p-5"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span className="leading-6 text-[#587066]">{contact.address}</span></div> : null}
-                  {contact.supportHours ? <div className="flex items-start gap-4 rounded-[18px] bg-white p-5"><Headphones className="mt-0.5 h-5 w-5 shrink-0 text-[#146456]" /><span className="leading-6 text-[#587066]">{contact.supportHours}</span></div> : null}
+                <p className="mt-6 max-w-[520px] text-[17px] leading-8 text-[#587066]">{contact.intro}</p>
+
+                <div className="mt-8 rounded-[28px] border border-white/80 bg-white/85 p-3 shadow-[0_22px_60px_rgba(3,54,39,0.09)] backdrop-blur-sm sm:p-4">
+                  {contact.email ? (
+                    <a href={`mailto:${contact.email}`} className="group flex items-center gap-4 rounded-[20px] px-3 py-4 transition hover:bg-[#f1f8f4] sm:px-4">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#e3f2e9] text-[#146456] transition group-hover:bg-[#146456] group-hover:text-white"><Mail className="h-5 w-5" /></span>
+                      <span className="min-w-0"><span className="block text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#6c827a]">Email us</span><span className="mt-1 block truncate text-[16px] font-bold text-[#063627]">{contact.email}</span></span>
+                    </a>
+                  ) : null}
+
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {contact.phone ? (
+                      <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="group flex items-center gap-3 rounded-[20px] bg-[#f5faf7] px-3 py-4 transition hover:-translate-y-0.5 hover:bg-[#edf7f1] sm:px-4">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#146456] shadow-sm"><Phone className="h-[18px] w-[18px]" /></span>
+                        <span className="min-w-0"><span className="block text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6c827a]">Call us</span><span className="mt-1 block whitespace-nowrap text-[14px] font-bold text-[#063627]">{contact.phone}</span></span>
+                      </a>
+                    ) : null}
+                    <a href="https://wa.me/2347077696521" target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-[20px] bg-[#e9f8ee] px-3 py-4 transition hover:-translate-y-0.5 hover:bg-[#dcf3e4] sm:px-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#16894d] shadow-sm"><MessageCircle className="h-[18px] w-[18px]" /></span>
+                      <span className="min-w-0"><span className="block text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#588267]">WhatsApp</span><span className="mt-1 block whitespace-nowrap text-[14px] font-bold text-[#063627]">Chat with us</span></span>
+                    </a>
+                  </div>
+
+                  <div className="mt-3 grid gap-3 border-t border-[#e1ebe5] px-3 pb-2 pt-4 text-[14px] text-[#587066] sm:grid-cols-[0.7fr_1.3fr] sm:px-4">
+                    {contact.address ? <div className="flex items-center gap-3"><MapPin className="h-[18px] w-[18px] shrink-0 text-[#146456]" /><span>{contact.address}</span></div> : null}
+                    {contact.supportHours ? <div className="flex items-start gap-3"><Headphones className="mt-0.5 h-[18px] w-[18px] shrink-0 text-[#146456]" /><span className="leading-5">{contact.supportHours}</span></div> : null}
+                  </div>
                 </div>
               </Reveal>
               <Reveal delay={0.08}><ContactForm /></Reveal>
