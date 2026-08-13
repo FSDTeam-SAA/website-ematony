@@ -135,6 +135,24 @@ summary:focus-visible {
   text-wrap: balance;
 }
 
+.about-story-content > :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+  margin-top: 2.75rem;
+}
+
+.about-story-content > :is(h1, h2, h3, h4, h5, h6) + p {
+  margin-top: 0.9rem;
+}
+
+.about-story-content > p {
+  max-width: none;
+}
+
+.about-story-content > :is(ul, ol) {
+  border-radius: 1.1rem;
+  background: #f2f8f3;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+}
+
 .brand-grid {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
