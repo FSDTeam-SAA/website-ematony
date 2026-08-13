@@ -26,6 +26,7 @@ import {
   DownloadAppButton,
   StoreButtons,
 } from "@/app/components/download-modal";
+import { AboutStoryDialog } from "@/app/components/about-story-dialog";
 import { FaqAccordion } from "@/app/components/faq-accordion";
 import { ContactForm } from "@/app/components/contact-form";
 import { RichText } from "@/app/components/rich-text";
@@ -479,34 +480,70 @@ export default async function Home() {
 
           <section id="about" className="bg-[#fffaf0] py-24 sm:py-28">
             <div className="section-shell">
-              <Reveal className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-                <div>
+              <Reveal className="overflow-hidden rounded-[30px] border border-[#d6e4dc] bg-white shadow-[0_24px_70px_rgba(3,54,39,0.08)] lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:rounded-[38px]">
+                <div className="relative min-h-[340px] overflow-hidden sm:min-h-[440px] lg:min-h-[560px]">
+                  <Image
+                    src="/brand/campaign/hero-circle.jpg"
+                    alt="Friends gathered around a table as a trusted savings circle"
+                    fill
+                    sizes="(min-width: 1024px) 46vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#032f25]/85 via-[#032f25]/10 to-transparent" />
+                  <div className="absolute inset-x-5 bottom-5 rounded-[22px] border border-white/20 bg-[#032f25]/78 p-5 text-white backdrop-blur-md sm:inset-x-7 sm:bottom-7 sm:p-6">
+                    <p className="text-[12px] font-extrabold uppercase tracking-[0.15em] text-[#f5b94b]">Built for real circles</p>
+                    <p className="mt-2 max-w-[470px] text-[17px] font-semibold leading-7 text-white/90 sm:text-[19px]">
+                      Familiar community saving, supported by clearer records and shared visibility.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 xl:p-16">
                   <p className="section-kicker text-[#146456]">About Ajo Family</p>
-                  <h2 className="text-balance mt-5 text-[42px] font-bold leading-[1] text-[#063627] sm:text-[58px] lg:text-[66px]">
+                  <h2 className="text-balance mt-5 text-[40px] font-bold leading-[1] text-[#063627] sm:text-[54px] lg:text-[60px]">
                     {about.title}
                   </h2>
+                  <RichText content={about.intro} className="text-pretty mt-6 max-w-[590px] text-[17px] leading-8 text-[#587066] sm:text-[18px]" />
+
+                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {["Rooted in trust", "Designed for clarity"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 rounded-2xl bg-[#e7f4eb] px-4 py-3 text-[14px] font-bold text-[#0f5b46]">
+                        <Check aria-hidden="true" size={17} strokeWidth={3} />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+
+                  <AboutStoryDialog title={about.title}>
+                    {about.content ? (
+                      <RichText
+                        content={about.content}
+                        className="about-story-content text-[16px] leading-8 text-[#587066] sm:text-[17px]"
+                      />
+                    ) : (
+                      <div className="grid gap-5">
+                        {about.sections.map((section, index) => (
+                          <section
+                            key={`${section.title}-${index}`}
+                            className="rounded-[22px] border border-[#dce6df] bg-[#fffaf0] p-5 sm:p-7"
+                          >
+                            <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#146456]">
+                              Chapter {String(index + 1).padStart(2, "0")}
+                            </p>
+                            <h3 className="mt-3 text-[25px] font-bold text-[#063627]">
+                              {section.title}
+                            </h3>
+                            <RichText
+                              content={section.body}
+                              className="mt-4 text-[16px] leading-8 text-[#587066]"
+                            />
+                          </section>
+                        ))}
+                      </div>
+                    )}
+                  </AboutStoryDialog>
                 </div>
-                <RichText content={about.intro} className="text-pretty max-w-[660px] text-[18px] leading-8 text-[#587066] lg:justify-self-end" />
               </Reveal>
-              {about.content ? (
-                <Reveal className="mt-12">
-                  <article className="rounded-[28px] border border-[#d6e4dc] bg-white p-6 shadow-[0_18px_50px_rgba(3,54,39,0.07)] sm:p-9">
-                    <RichText content={about.content} className="text-[16px] leading-8 text-[#587066] sm:text-[17px]" />
-                  </article>
-                </Reveal>
-              ) : (
-                <div className="mt-12 grid gap-5 lg:grid-cols-3">
-                  {about.sections.map((section, index) => (
-                  <Reveal key={`${section.title}-${index}`} delay={index * 0.07}>
-                    <article className={`h-full rounded-[26px] border p-6 sm:p-7 ${index === 1 ? "border-[#efd4aa] bg-[#fff1d7]" : index === 2 ? "border-[#bcd8c8] bg-[#e7f4eb]" : "border-[#dce6df] bg-white"}`}>
-                      <span className="text-[12px] font-extrabold uppercase tracking-[0.14em] text-[#146456]">0{index + 1}</span>
-                      <h3 className="mt-4 text-[25px] font-bold text-[#063627]">{section.title}</h3>
-                      <RichText content={section.body} className="mt-4 text-[16px] leading-7 text-[#587066]" />
-                    </article>
-                  </Reveal>
-                  ))}
-                </div>
-              )}
             </div>
           </section>
 
