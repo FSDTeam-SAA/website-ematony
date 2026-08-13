@@ -5,17 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
-  BookOpenText,
-  CircleHelp,
-  Compass,
   Download,
-  LayoutGrid,
-  ListChecks,
-  Mail,
   Menu,
-  MessageSquareQuote,
-  ShieldCheck,
-  Users,
   X,
 } from "lucide-react";
 import {
@@ -33,7 +24,7 @@ import {
 } from "@/app/components/download-modal";
 
 const navigation = [
-  { href: "/#about", label: "About"},
+  { href: "/#about", label: "About" },
   { href: "/#how-it-works", label: "How it works"},
   { href: "/#pathways", label: "Pathways"},
   { href: "/#features", label: "Features"},
